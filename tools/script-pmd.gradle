@@ -1,0 +1,15 @@
+apply plugin: 'pmd'
+
+task pmd(type: Pmd) {
+    ruleSetFiles = files("$project.rootDir/tools/rules-pmd.xml")
+    ignoreFailures = true
+    ruleSets = []
+    source 'src/main'
+    include '**/*.java'
+    exclude '**/gen/**'
+    reports {
+        xml.enabled = false
+        html.enabled = true
+        html.destination = "$project.buildDir/reports/pmd/pmd.html"
+    }
+}

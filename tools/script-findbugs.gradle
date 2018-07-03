@@ -1,0 +1,17 @@
+apply plugin: 'findbugs'
+
+task findbugs(type: FindBugs) {
+    effort = "max"
+    reportLevel = "high"
+    ignoreFailures = true
+    excludeFilter = file("$project.rootDir/tools/rules-findbugs.xml")
+    classes = fileTree("$project.buildDir/intermediates/classes")
+    source = fileTree("$project.rootDir/src/main")
+    classpath = files()
+    reports {
+        xml.enabled = false
+        html.enabled = true
+        html.destination = file("$project.buildDir/reports/findbugs/findbugs.html")
+        html.stylesheet resources.text.fromFile('../tools/findbugs-report-style.xsl')
+    }
+}
